@@ -204,7 +204,7 @@ export default function GrabAreas() {
             {LONG_RIDE_THRESHOLDS.map((km: any) => (
               <button
                 key={km}
-                onClick={() => setLongRideThreshold(km: any)}
+                onClick={() => setLongRideThreshold(km)}
                 className={classNames(
                   'rounded-full px-3.5 py-1.5 text-xs font-medium',
                   longRideThreshold === km ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
