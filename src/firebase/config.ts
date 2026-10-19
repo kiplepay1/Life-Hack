@@ -14,11 +14,11 @@ import { getFirestore } from 'firebase/firestore'
 // README "Why there's no Firebase Storage here" if you want to add it
 // back later on Blaze.
 const firebaseConfig = {
-  apiKey: AIzaSyD1X8NpnHHWGv10nE4dH1iZvQ4P13hMCcY,
-  authDomain: lifehack-150b3.firebaseapp.com,
-  projectId: lifehack-150b3,
-  messagingSenderId: 921092874504,
-  appId: 1:921092874504:web:28872eeaed815b867a4cbd,
+  apiKey: "AIzaSyD1X8NpnHHWGv10nE4dH1iZvQ4P13hMCcY",
+  authDomain: "lifehack-150b3.firebaseapp.com",
+  projectId: "lifehack-150b3",
+  messagingSenderId: "921092874504",
+  appId: "1:921092874504:web:28872eeaed815b867a4cbd",
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
