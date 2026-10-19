@@ -21,7 +21,7 @@ export const NAV_ITEMS = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/money', label: 'Income & Money', icon: Wallet },
   { to: '/commitments', label: 'Commitments', icon: Receipt },
-  { to: '/grab/hub', label: 'GrabFlow Hub', icon: Car },
+  { to: '/grab', label: 'GrabFlow Hub', icon: Car },
   { to: '/reports', label: 'Insights', icon: BarChart3 },
   { to: '/settings', label: 'Settings', icon: Settings },
 ] as const
@@ -29,7 +29,7 @@ export const NAV_ITEMS = [
 export const ADMIN_NAV_ITEM = { to: '/admin', label: 'Admin Portal', icon: ShieldCheck } as const
 
 export const GRAB_NAV_ITEMS = [
-  { to: '/grab/hub', label: 'Overview' },
+  { to: '/grab', label: 'Overview' },
   { to: '/grab/session', label: 'Log Session' },
   { to: '/grab/history', label: 'History' },
   { to: '/grab/analytics', label: 'Analytics' },
