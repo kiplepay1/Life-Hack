@@ -201,10 +201,10 @@ export default function GrabAreas() {
       {tab === 'longrides' && (
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            {LONG_RIDE_THRESHOLDS.map((km) => (
+            {LONG_RIDE_THRESHOLDS.map((km: any) => (
               <button
                 key={km}
-                onClick={() => setLongRideThreshold(km)}
+                onClick={() => setLongRideThreshold(km: any)}
                 className={classNames(
                   'rounded-full px-3.5 py-1.5 text-xs font-medium',
                   longRideThreshold === km ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'

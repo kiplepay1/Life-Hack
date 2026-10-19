@@ -55,7 +55,6 @@ export default function SummaryInsights() {
 
   return (
     <div className="space-y-6 pb-24 md:pb-8">
-      {/* Header Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 p-6 sm:p-8 text-white shadow-xl">
         <div className="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"></div>
         <div className="relative z-10 flex items-center justify-between">
@@ -71,7 +70,6 @@ export default function SummaryInsights() {
         </div>
       </div>
 
-      {/* Core Metrics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-5 shadow-lg">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold uppercase tracking-wider">
@@ -114,33 +112,6 @@ export default function SummaryInsights() {
           <div className="text-2xl font-bold text-white mt-2">{formatCurrency(stats.totalCommitments, currency)}</div>
           <div className="text-amber-400 text-xs mt-1 font-medium">
             Monthly fixed obligations
-          </div>
-        </div>
-      </div>
-
-      {/* Smart Recommendations Section */}
-      <div className="rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 sm:p-8 shadow-lg space-y-5">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-emerald-400" /> Driver Insights & Advice
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-2xl bg-emerald-500/10 border border-emerald-500/20 p-5 text-emerald-200 space-y-2">
-            <div className="flex items-center gap-2 font-semibold text-emerald-100">
-              <TrendingUp className="h-4 w-4 text-emerald-400" /> Surge Window Optimization
-            </div>
-            <p className="text-xs sm:text-sm leading-relaxed">
-              Your highest-yielding Grab sessions hit peak efficiency during high-demand rush hours. Target these windows to maximize your hourly earnings.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-cyan-500/10 border border-cyan-500/20 p-5 text-cyan-200 space-y-2">
-            <div className="flex items-center gap-2 font-semibold text-cyan-100">
-              <Car className="h-4 w-4 text-cyan-400" /> Fuel & Mileage Efficiency
-            </div>
-            <p className="text-xs sm:text-sm leading-relaxed">
-              Keep an eye on mileage. Shorter trip clusters lower vehicle wear and conserve fuel, keeping more net earnings in your pocket.
-            </p>
           </div>
         </div>
       </div>
