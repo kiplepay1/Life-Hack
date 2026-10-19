@@ -5,7 +5,7 @@ import { useCollection } from '@/services/useCollection'
 import { LoadingState } from '@/components/States'
 import { formatCurrency } from '@/utils/format'
 import { aggregateSessions, thisMonthSessions, monthKey } from '@/utils/grab'
-import type { GrabSession, Expense, Commitment } from '@/types'
+import type { GrabSession, Expense, Commitment, Income } from '@/types'
 
 export default function SummaryInsights() {
   const { profile } = useAuth()
@@ -14,13 +14,18 @@ export default function SummaryInsights() {
   const grabSessions = useCollection<GrabSession>('grabSessions', 'date')
   const expenses = useCollection<Expense>('expenses', 'date')
   const commitments = useCollection<Commitment>('commitments', 'createdAt')
+  const incomes = useCollection<Income>('income', 'date')
 
-  const loading = grabSessions.loading || expenses.loading || commitments.loading
+  const loading = grabSessions.loading || expenses.loading || commitments.loading || incomes.loading
 
   const stats = useMemo(() => {
     const currentMonth = monthKey(new Date().toISOString())
     const monthSessions = thisMonthSessions(grabSessions.data)
     const aggregated = aggregateSessions(monthSessions)
+
+    const totalSalaryIncome = incomes.data
+      .filter((i) => monthKey(i.date) === currentMonth)
+      .reduce((sum, i) => sum + i.amount, 0)
 
     const totalExpense = expenses.data
       .filter((e) => monthKey(e.date) === currentMonth)
@@ -28,17 +33,21 @@ export default function SummaryInsights() {
 
     const totalCommitments = commitments.data.reduce((sum, c) => sum + c.amount, 0)
 
+    const totalInflow = aggregated.totalNet + totalSalaryIncome
+    const totalOutflow = totalExpense + totalCommitments
+
     return {
       grossEarnings: aggregated.totalGross,
       netEarnings: aggregated.totalNet,
       totalHours: aggregated.totalHours,
       avgHourly: aggregated.avgRmPerHour,
       totalKm: aggregated.totalKm,
+      totalSalaryIncome,
       totalExpense,
       totalCommitments,
-      netCashFlow: aggregated.totalNet - totalExpense - totalCommitments,
+      netCashFlow: totalInflow - totalOutflow,
     }
-  }, [grabSessions.data, expenses.data, commitments.data])
+  }, [grabSessions.data, expenses.data, commitments.data, incomes.data])
 
   if (loading) {
     return <LoadingState label="Analyzing your financial pulse..." />
@@ -52,11 +61,11 @@ export default function SummaryInsights() {
         <div className="relative z-10 flex items-center justify-between">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white/25 px-3 py-1 text-xs font-semibold backdrop-blur-md mb-3 shadow-sm">
-              <Sparkles className="h-3.5 w-3.5" /> Smart Financial Intelligence
+              <Sparkles className="h-3.5 w-3.5" /> GrabFlow Intelligence & Personal Wallet
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Summary & Insights</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Financial Overview</h1>
             <p className="text-emerald-100 text-sm mt-1 max-w-xl">
-              Combined real-time analysis of your Grab sessions, operating costs, and monthly commitments.
+              Real-time summary of your Grab driving yields, salary inflows, and monthly commitments.
             </p>
           </div>
         </div>
@@ -71,7 +80,7 @@ export default function SummaryInsights() {
           </div>
           <div className="text-2xl font-bold text-white mt-2">{formatCurrency(stats.netCashFlow, currency)}</div>
           <div className="text-emerald-400 text-xs mt-1 flex items-center gap-1 font-medium">
-            <TrendingUp className="h-3.5 w-3.5" /> After expenses & commitments
+            <TrendingUp className="h-3.5 w-3.5" /> Grab + Salary minus Commitments
           </div>
         </div>
 
@@ -93,7 +102,7 @@ export default function SummaryInsights() {
           </div>
           <div className="text-2xl font-bold text-white mt-2">{stats.totalKm.toFixed(0)} KM</div>
           <div className="text-slate-400 text-xs mt-1 font-medium">
-            Gross: {formatCurrency(stats.grossEarnings, currency)}
+            Gross Grab: {formatCurrency(stats.grossEarnings, currency)}
           </div>
         </div>
 
@@ -112,25 +121,25 @@ export default function SummaryInsights() {
       {/* Smart Recommendations Section */}
       <div className="rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 sm:p-8 shadow-lg space-y-5">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-emerald-400" /> Automated Driving & Financial Suggestions
+          <Sparkles className="h-5 w-5 text-emerald-400" /> Driver Insights & Advice
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="rounded-2xl bg-emerald-500/10 border border-emerald-500/20 p-5 text-emerald-200 space-y-2">
             <div className="flex items-center gap-2 font-semibold text-emerald-100">
-              <TrendingUp className="h-4 w-4 text-emerald-400" /> Peak Yield Optimization
+              <TrendingUp className="h-4 w-4 text-emerald-400" /> Surge Window Optimization
             </div>
             <p className="text-xs sm:text-sm leading-relaxed">
-              Your highest-yielding sessions typically happen when maintaining consistent hourly windows. Focus your driving during high demand surge hours to maximize your RM/hr ratio.
+              Your highest-yielding Grab sessions hit peak efficiency during high-demand rush hours. Target these windows to maximize your hourly earnings.
             </p>
           </div>
 
           <div className="rounded-2xl bg-cyan-500/10 border border-cyan-500/20 p-5 text-cyan-200 space-y-2">
             <div className="flex items-center gap-2 font-semibold text-cyan-100">
-              <Car className="h-4 w-4 text-cyan-400" /> Distance Efficiency Watch
+              <Car className="h-4 w-4 text-cyan-400" /> Fuel & Mileage Efficiency
             </div>
             <p className="text-xs sm:text-sm leading-relaxed">
-              Monitor your distance-to-earnings ratio. High-mileage low-fare sessions increase fuel burn and vehicle maintenance wear. Prioritize shorter trip clusters when possible.
+              Keep an eye on mileage. Shorter trip clusters lower vehicle wear and conserve fuel, keeping more net earnings in your pocket.
             </p>
           </div>
         </div>
