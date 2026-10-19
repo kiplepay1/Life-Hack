@@ -9,7 +9,7 @@ export default function GrabSubNav() {
         <NavLink
           key={item.to}
           to={item.to}
-          end={item.to === '/grab/hub'}
+          end={item.to === '/grab'}
           className={({ isActive }) =>
             classNames(
               'shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors',
